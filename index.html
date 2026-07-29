@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Soup | Sopa instantánea coreana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red: #d20c11;
+    --red-dark: #730b0b;
+    --red-bright:#d20c11;
+    --cream: #fef0e3;
+    --cream-2: #f8e2ca;
+    --black: #180f0b;
+    --pure-black: #000000;
+    --gold: #e8a33d;
+    --text-muted:#6b5c52;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  ul{list-style:none;}
+  .display{font-family:'Jua', sans-serif;}
+
+  /* ===== Header ===== */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 60px;
+    background:var(--cream);
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{width:52px; height:52px; border-radius:50%;}
+  nav ul{display:flex; gap:38px;}
+  nav a{
+    font-weight:600; font-size:14px; letter-spacing:.5px;
+    color:var(--black); position:relative; padding-bottom:6px;
+  }
+  nav a.active{color:var(--red-bright);}
+  nav a.active::after{
+    content:""; position:absolute; left:0; bottom:0; width:100%; height:3px;
+    background:var(--red-bright); border-radius:3px;
+  }
+  .header-icons{display:flex; gap:22px; align-items:center;}
+  .header-icons .icon{
+    width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; position:relative;
+  }
+  .cart-badge{
+    position:absolute; top:-8px; right:-10px; background:var(--red-bright); color:#fff;
+    font-size:10px; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    align-items:center;
+    padding:20px 60px 50px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 100% 0%, #180f0b 0%, transparent 40%),
+      var(--cream);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:0; left:0; width:56%; height:100%;
+    background: linear-gradient(120deg, var(--red) 0%, var(--red-dark) 60%, transparent 61%);
+    opacity:.12;
+    z-index:0;
+    pointer-events:none;
+  }
+  .hero-copy{position:relative; z-index:2;}
+  .badge-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--red-bright); color:#fff; font-size:12px; font-weight:700;
+    padding:6px 16px; border-radius:999px; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:96px; line-height:.85; color:var(--black);
+    -webkit-text-stroke: 0px;
+    letter-spacing:-1px;
+    margin-bottom:22px;
+  }
+  .hero h1 span{
+    display:block; color:var(--red-bright);
+  }
+  .hero-sub{
+    font-family:'Jua', sans-serif;
+    font-size:30px; line-height:1.15; margin-bottom:18px; color:var(--black);
+  }
+  .hero-sub .accent{color:var(--red-bright);}
+  .hero-desc{
+    color:var(--text-muted); font-size:15px; line-height:1.6; max-width:340px; margin-bottom:30px;
+  }
+  /* Botones eliminados del hero */
+
+  .hero-visual{position:relative; z-index:2; display:flex; justify-content:center;}
+  .hero-plate{
+    background: transparent;
+    padding: 0;
+    width:100%; max-width:420px; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    box-shadow: none;
+  }
+  .hero-plate img{width:100%; height:100%; object-fit:contain;}
+  .timer-chip{
+    position:absolute; right:6%; bottom:8%;
+    background:var(--black); color:#fff; border-radius:50%;
+    width:120px; height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; font-family:'Jua',sans-serif; box-shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+  .timer-chip .small{font-size:10px; font-weight:400; font-family:'Poppins',sans-serif; opacity:.8;}
+  .timer-chip .big{font-size:26px; color:var(--gold); line-height:1;}
+
+  /* ===== Features Strip ===== */
+  .features{
+    background: linear-gradient(180deg, var(--red-bright), var(--red-dark));
+    color:#fff;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:34px 60px;
+    gap:20px;
+  }
+  .feature{display:flex; align-items:center; gap:14px;}
+  .feature .ico{
+    width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.15);
+    display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+  }
+  .feature h4{font-size:14px; font-weight:700; margin-bottom:4px;}
+  .feature p{font-size:12px; opacity:.85; line-height:1.4;}
+
+  /* ===== Ingredients showcase ===== */
+  .ingredients{
+    padding:40px 60px 10px;
+  }
+  .ingredients-card{
+    background:#fff; border-radius:18px; overflow:hidden;
+    display:grid; grid-template-columns:1.1fr 1fr; align-items:stretch;
+    box-shadow:0 4px 18px rgba(0,0,0,.06); min-height:320px;
+  }
+  .ing-img{position:relative; overflow:hidden;}
+  .ing-img img{width:100%; height:100%; object-fit:cover; display:block;}
+  .ing-text{padding:44px 46px; display:flex; flex-direction:column; justify-content:center;}
+  .ing-text h2{
+    font-family:'Jua', sans-serif; font-size:28px; line-height:1.2; color:var(--red-bright); margin-bottom:16px;
+  }
+  .ing-text p{color:var(--text-muted); font-size:14.5px; line-height:1.7;}
+
+  /* ===== Catalog ===== */
+  .section-title{
+    text-align:center; padding-top:50px;
+  }
+  .section-title h2{
+    font-family:'Jua', sans-serif; font-size:32px; color:var(--red-bright);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .section-title p{color:var(--text-muted); font-size:14px; margin-top:6px;}
+
+  .catalog-wrap{
+    position:relative; padding:30px 60px 10px;
+  }
+  .catalog-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  .product-card{
+    background:#fff; border-radius:16px; padding:22px; text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.05);
+    display:flex; flex-direction:column;
+  }
+  .img-plate{
+    background:#f4ece0; border-radius:14px; padding:16px; margin-bottom:14px; overflow:hidden;
+  }
+  .product-card img{
+    width:100%; aspect-ratio:1/1; object-fit:contain; display:block;
+  }
+  .product-card h3{font-size:17px; font-weight:700; margin-bottom:6px;}
+  .product-desc{font-size:12.5px; color:var(--text-muted); line-height:1.5; margin-bottom:14px; flex-grow:1;}
+  .price{font-weight:800; color:var(--red-bright); margin-bottom:14px; font-size:22px; font-family:'Jua',sans-serif;}
+  .buy-btn{
+    display:block; width:100%; background:var(--red-bright); color:#fff; border:none;
+    padding:12px; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer;
+  }
+
+  /* ===== Korea Banner ===== */
+  .korea-banner{
+    margin:60px 60px 0; border-radius:18px; overflow:hidden; position:relative;
+    display:grid; grid-template-columns:1fr 1fr; align-items:stretch; min-height:280px;
+    background:var(--black);
+  }
+  .korea-banner .kb-text{
+    padding:50px; display:flex; flex-direction:column; justify-content:center; color:#fff; position:relative; z-index:2;
+  }
+  .korea-banner h2{
+    font-family:'Jua', sans-serif; font-size:38px; line-height:1.1; margin-bottom:16px;
+  }
+  .korea-banner h2 span{color:var(--red-bright);}
+  .korea-banner p{color:#d8cfc8; font-size:14px; margin-bottom:24px; max-width:320px;}
+  .korea-banner .kb-img{position:relative;}
+  .korea-banner .kb-img img{width:100%; height:100%; object-fit:cover;}
+
+  /* ===== Social ===== */
+  .social{
+    background:var(--cream-2); padding:40px 60px; text-align:center;
+  }
+  .social h3{
+    font-family:'Jua', sans-serif; color:var(--red-bright); font-size:22px; margin-bottom:20px;
+  }
+  .social-row{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
+  .social-pill{
+    display:flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+    color:#fff; font-weight:600; font-size:14px;
+  }
+  .social-pill.ig{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);}
+  .social-pill.fb{background:#1877f2;}
+  .social-pill.tk{background:var(--pure-black);}
+  .social-pill.wa{background:#25d366;}
+
+  /* ===== Footer ===== */
+  footer{
+    background:linear-gradient(180deg, var(--red), var(--red-dark));
+    color:#fff; padding:50px 60px 24px;
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:24px; padding-bottom:30px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+  }
+  .footer-logo{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .footer-logo img{width:44px; height:44px; border-radius:50%;}
+  .footer-logo .name{font-family:'Jua',sans-serif; font-size:18px; line-height:1;}
+  .footer-logo .sub{font-size:10px; opacity:.8;}
+  footer .col p{font-size:12px; line-height:1.7; opacity:.85; max-width:220px;}
+  footer h5{font-size:13px; margin-bottom:14px; font-weight:700;}
+  footer .col ul li{font-size:12px; opacity:.85; margin-bottom:9px;}
+  /* Sección newsletter eliminada */
+  .footer-bottom{
+    text-align:center; font-size:11px; opacity:.7; padding-top:20px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px){
+    header{padding:14px 24px; flex-wrap:wrap; gap:12px;}
+    nav ul{gap:18px; flex-wrap:wrap;}
+    .hero{grid-template-columns:1fr; padding:20px 24px 40px; text-align:center;}
+    .hero-desc{margin-left:auto; margin-right:auto;}
+    .hero h1{font-size:64px;}
+    .hero::before{display:none;}
+    .features{grid-template-columns:1fr 1fr; padding:30px 24px;}
+    .ingredients{padding:30px 24px;}
+    .ingredients-card{grid-template-columns:1fr;}
+    .ing-img{min-height:220px;}
+    .ing-text{padding:32px 26px;}
+    .catalog-wrap{padding:30px 24px;}
+    .catalog-grid{grid-template-columns:1fr 1fr;}
+    .korea-banner{grid-template-columns:1fr; margin:40px 24px;}
+    .social{padding:30px 24px;}
+    footer{padding:40px 24px 20px;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:30px;}
+  }
+  @media (max-width:520px){
+    .hero h1{font-size:46px;}
+    .catalog-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="K-Soup logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#" class="active">INICIO</a></li>
+      <li><a href="#menu">MENÚ</a></li>
+      <li><a href="#">SABORES</a></li>
+      <li><a href="#">NOSOTROS</a></li>
+      <li><a href="#contacto">CONTACTO</a></li>
+    </ul>
+  </nav>
+  <div class="header-icons">
+    <div class="icon">🔍</div>
+    <div class="icon">👤</div>
+    <div class="icon">🛒<span class="cart-badge">2</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="badge-pill">🌶️ 매운 한국 맛</span>
+    <h1>K-<span>SOUP</span></h1>
+    <p class="hero-sub">DULCE POR FUERA,<br><span class="accent">FUEGO</span> POR DENTRO.</p>
+    <p class="hero-desc">Sopa instantánea coreana llena de sabor, picante y amor.</p>
+    <!-- Botones eliminados -->
+  </div>
+  <div class="hero-visual">
+    <div class="hero-plate">
+      <img src="sopasen.jpeg" alt="K-Soup sopa completa">
+    </div>
+    <div class="timer-chip">
+      <span class="small">LISTA EN</span>
+      <span class="big">3-4</span>
+      <span class="small">MINUTOS ⏱️</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <div class="ico">🔥</div>
+    <div><h4>PICANTE A TU MANERA</h4><p>Elige tu nivel de picante</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">⏱️</div>
+    <div><h4>LISTA EN 3-4 MINUTOS</h4><p>Rápido, fácil y perfecta para cualquier momento</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">🌾</div>
+    <div><h4>INGREDIENTES PREMIUM</h4><p>Seleccionamos lo mejor para ti</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">❤️</div>
+    <div><h4>HECHA CON PASIÓN</h4><p>Cada sopa hecha con amor y dedicación</p></div>
+  </div>
+</section>
+
+<section class="ingredients">
+  <div class="ingredients-card">
+    <div class="ing-img"><img src="ingredientes.jpeg" alt="Ingredientes K-Soup"></div>
+    <div class="ing-text">
+      <h2>INGREDIENTES QUE MARCAN LA DIFERENCIA</h2>
+      <p>Elote dulce, taqueritos picantes, chicharrón crocante, queso derretido y mucho más — combina los complementos que quieras para armar tu sopa perfecta.</p>
+    </div>
+  </div>
+</section>
+
+<div id="menu" class="section-title">
+  <h2>🌸 MENÚ K-SOUP 🌸</h2>
+  <p>Elige tu sopa y personalízala a tu gusto</p>
+</div>
+
+<div class="catalog-wrap">
+  <div class="catalog-grid">
+    <div class="product-card">
+      <div class="img-plate"><img src="joj.jpeg" alt="Sopa Completa"></div>
+      <h3>SOPA COMPLETA 🔥</h3>
+      <p class="product-desc">Cargada con todos los toppings: queso derretido, chile en polvo y taqueritos crujientes. La experiencia K-Soup al máximo.</p>
+      <div class="price">$70</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+    <div class="product-card">
+      <div class="img-plate"><img src="assets/soup_sencilla.jpg" alt="Sopa Sencilla"></div>
+      <h3>SOPA SENCILLA 🍜</h3>
+      <p class="product-desc">Nuestra base de sopa instantánea coreana, servida clásica con un toque de limón. Simple, rápida y deliciosa.</p>
+      <div class="price">$30</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+    <div class="product-card">
+      <div class="img-plate"><img src="sopasen.jpeg" alt="Sopa con Complementos"></div>
+      <h3>SOPA CON COMPLEMENTOS 🧀</h3>
+      <p class="product-desc">La sopa sencilla acompañada de un complemento a tu elección: queso, chicharrón, elote o lo que más te antoje.</p>
+      <div class="price">$40</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+  </div>
+</div>
+
+<div class="korea-banner">
+  <div class="kb-text">
+    <h2>EL SABOR DE COREA<br><span>EN TUS MANOS</span></h2>
+    <p>Recetas auténticas, ingredientes seleccionados y el toque picante que te encanta.</p>
+    <a href="#" class="btn btn-primary" style="width:fit-content;">CONOCE MÁS</a>
+  </div>
+  <div class="kb-img">
+    <img src="assets/banner_bowl.jpg" alt="K-Soup bowl">
+  </div>
+</div>
+
+<section class="social">
+  <h3>🌸 SÍGUENOS EN NUESTRAS REDES 🌸</h3>
+  <div class="social-row">
+    <a href="#" class="social-pill ig">📷 @ksoupoficial</a>
+    <a href="#" class="social-pill fb">f K-Soup</a>
+    <a href="#" class="social-pill tk">♪ @k_soup</a>
+    <a href="#" class="social-pill wa">💬 Escríbenos</a>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="footer-grid">
+    <div class="col">
+      <div class="footer-logo">
+        <img src="logo.png" alt="K-Soup logo">
+        <div>
+          <div class="name">K-SOUP</div>
+          <div class="sub">한국 인스턴트</div>
+        </div>
+      </div>
+      <p>Sopa instantánea coreana llena de sabor, picante y amor.</p>
+    </div>
+    <div class="col">
+      <h5>CONTÁCTANOS</h5>
+      <ul>
+        <li>+504 1234-5678</li>
+        <li>hola@k-soup.com</li>
+        <li>Tegucigalpa, Honduras</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h5>REDES SOCIALES</h5>
+      <ul>
+        <li>Instagram</li>
+        <li>Facebook</li>
+        <li>TikTok</li>
+        <li>WhatsApp</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 K-Soup. Todos los derechos reservados.</div>
+</footer>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Soup | Sopa instantánea coreana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red: #d20c11;
+    --red-dark: #730b0b;
+    --red-bright:#d20c11;
+    --cream: #fef0e3;
+    --cream-2: #f8e2ca;
+    --black: #180f0b;
+    --pure-black: #000000;
+    --gold: #e8a33d;
+    --text-muted:#6b5c52;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  ul{list-style:none;}
+  .display{font-family:'Jua', sans-serif;}
+
+  /* ===== Header ===== */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 60px;
+    background:var(--cream);
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{width:52px; height:52px; border-radius:50%;}
+  nav ul{display:flex; gap:38px;}
+  nav a{
+    font-weight:600; font-size:14px; letter-spacing:.5px;
+    color:var(--black); position:relative; padding-bottom:6px;
+  }
+  nav a.active{color:var(--red-bright);}
+  nav a.active::after{
+    content:""; position:absolute; left:0; bottom:0; width:100%; height:3px;
+    background:var(--red-bright); border-radius:3px;
+  }
+  .header-icons{display:flex; gap:22px; align-items:center;}
+  .header-icons .icon{
+    width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; position:relative;
+  }
+  .cart-badge{
+    position:absolute; top:-8px; right:-10px; background:var(--red-bright); color:#fff;
+    font-size:10px; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    align-items:center;
+    padding:20px 60px 50px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 100% 0%, #180f0b 0%, transparent 40%),
+      var(--cream);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:0; left:0; width:56%; height:100%;
+    background: linear-gradient(120deg, var(--red) 0%, var(--red-dark) 60%, transparent 61%);
+    opacity:.12;
+    z-index:0;
+    pointer-events:none;
+  }
+  .hero-copy{position:relative; z-index:2;}
+  .badge-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--red-bright); color:#fff; font-size:12px; font-weight:700;
+    padding:6px 16px; border-radius:999px; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:96px; line-height:.85; color:var(--black);
+    -webkit-text-stroke: 0px;
+    letter-spacing:-1px;
+    margin-bottom:22px;
+  }
+  .hero h1 span{
+    display:block; color:var(--red-bright);
+  }
+  .hero-sub{
+    font-family:'Jua', sans-serif;
+    font-size:30px; line-height:1.15; margin-bottom:18px; color:var(--black);
+  }
+  .hero-sub .accent{color:var(--red-bright);}
+  .hero-desc{
+    color:var(--text-muted); font-size:15px; line-height:1.6; max-width:340px; margin-bottom:30px;
+  }
+  /* Botones eliminados del hero */
+
+  .hero-visual{position:relative; z-index:2; display:flex; justify-content:center;}
+  .hero-plate{
+    background: transparent;
+    padding: 0;
+    width:100%; max-width:420px; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    box-shadow: none;
+  }
+  .hero-plate img{width:100%; height:100%; object-fit:contain;}
+  .timer-chip{
+    position:absolute; right:6%; bottom:8%;
+    background:var(--black); color:#fff; border-radius:50%;
+    width:120px; height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; font-family:'Jua',sans-serif; box-shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+  .timer-chip .small{font-size:10px; font-weight:400; font-family:'Poppins',sans-serif; opacity:.8;}
+  .timer-chip .big{font-size:26px; color:var(--gold); line-height:1;}
+
+  /* ===== Features Strip ===== */
+  .features{
+    background: linear-gradient(180deg, var(--red-bright), var(--red-dark));
+    color:#fff;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:34px 60px;
+    gap:20px;
+  }
+  .feature{display:flex; align-items:center; gap:14px;}
+  .feature .ico{
+    width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.15);
+    display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+  }
+  .feature h4{font-size:14px; font-weight:700; margin-bottom:4px;}
+  .feature p{font-size:12px; opacity:.85; line-height:1.4;}
+
+  /* ===== Ingredients showcase ===== */
+  .ingredients{
+    padding:40px 60px 10px;
+  }
+  .ingredients-card{
+    background:#fff; border-radius:18px; overflow:hidden;
+    display:grid; grid-template-columns:1.1fr 1fr; align-items:stretch;
+    box-shadow:0 4px 18px rgba(0,0,0,.06); min-height:320px;
+  }
+  .ing-img{position:relative; overflow:hidden;}
+  .ing-img img{width:100%; height:100%; object-fit:cover; display:block;}
+  .ing-text{padding:44px 46px; display:flex; flex-direction:column; justify-content:center;}
+  .ing-text h2{
+    font-family:'Jua', sans-serif; font-size:28px; line-height:1.2; color:var(--red-bright); margin-bottom:16px;
+  }
+  .ing-text p{color:var(--text-muted); font-size:14.5px; line-height:1.7;}
+
+  /* ===== Catalog ===== */
+  .section-title{
+    text-align:center; padding-top:50px;
+  }
+  .section-title h2{
+    font-family:'Jua', sans-serif; font-size:32px; color:var(--red-bright);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .section-title p{color:var(--text-muted); font-size:14px; margin-top:6px;}
+
+  .catalog-wrap{
+    position:relative; padding:30px 60px 10px;
+  }
+  .catalog-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  .product-card{
+    background:#fff; border-radius:16px; padding:22px; text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.05);
+    display:flex; flex-direction:column;
+  }
+  .img-plate{
+    background:#f4ece0; border-radius:14px; padding:16px; margin-bottom:14px; overflow:hidden;
+  }
+  .product-card img{
+    width:100%; aspect-ratio:1/1; object-fit:contain; display:block;
+  }
+  .product-card h3{font-size:17px; font-weight:700; margin-bottom:6px;}
+  .product-desc{font-size:12.5px; color:var(--text-muted); line-height:1.5; margin-bottom:14px; flex-grow:1;}
+  .price{font-weight:800; color:var(--red-bright); margin-bottom:14px; font-size:22px; font-family:'Jua',sans-serif;}
+  .buy-btn{
+    display:block; width:100%; background:var(--red-bright); color:#fff; border:none;
+    padding:12px; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer;
+  }
+
+  /* ===== Korea Banner ===== */
+  .korea-banner{
+    margin:60px 60px 0; border-radius:18px; overflow:hidden; position:relative;
+    display:grid; grid-template-columns:1fr 1fr; align-items:stretch; min-height:280px;
+    background:var(--black);
+  }
+  .korea-banner .kb-text{
+    padding:50px; display:flex; flex-direction:column; justify-content:center; color:#fff; position:relative; z-index:2;
+  }
+  .korea-banner h2{
+    font-family:'Jua', sans-serif; font-size:38px; line-height:1.1; margin-bottom:16px;
+  }
+  .korea-banner h2 span{color:var(--red-bright);}
+  .korea-banner p{color:#d8cfc8; font-size:14px; margin-bottom:24px; max-width:320px;}
+  .korea-banner .kb-img{position:relative;}
+  .korea-banner .kb-img img{width:100%; height:100%; object-fit:cover;}
+
+  /* ===== Social ===== */
+  .social{
+    background:var(--cream-2); padding:40px 60px; text-align:center;
+  }
+  .social h3{
+    font-family:'Jua', sans-serif; color:var(--red-bright); font-size:22px; margin-bottom:20px;
+  }
+  .social-row{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
+  .social-pill{
+    display:flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+    color:#fff; font-weight:600; font-size:14px;
+  }
+  .social-pill.ig{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);}
+  .social-pill.fb{background:#1877f2;}
+  .social-pill.tk{background:var(--pure-black);}
+  .social-pill.wa{background:#25d366;}
+
+  /* ===== Footer ===== */
+  footer{
+    background:linear-gradient(180deg, var(--red), var(--red-dark));
+    color:#fff; padding:50px 60px 24px;
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:24px; padding-bottom:30px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+  }
+  .footer-logo{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .footer-logo img{width:44px; height:44px; border-radius:50%;}
+  .footer-logo .name{font-family:'Jua',sans-serif; font-size:18px; line-height:1;}
+  .footer-logo .sub{font-size:10px; opacity:.8;}
+  footer .col p{font-size:12px; line-height:1.7; opacity:.85; max-width:220px;}
+  footer h5{font-size:13px; margin-bottom:14px; font-weight:700;}
+  footer .col ul li{font-size:12px; opacity:.85; margin-bottom:9px;}
+  /* Sección newsletter eliminada */
+  .footer-bottom{
+    text-align:center; font-size:11px; opacity:.7; padding-top:20px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px){
+    header{padding:14px 24px; flex-wrap:wrap; gap:12px;}
+    nav ul{gap:18px; flex-wrap:wrap;}
+    .hero{grid-template-columns:1fr; padding:20px 24px 40px; text-align:center;}
+    .hero-desc{margin-left:auto; margin-right:auto;}
+    .hero h1{font-size:64px;}
+    .hero::before{display:none;}
+    .features{grid-template-columns:1fr 1fr; padding:30px 24px;}
+    .ingredients{padding:30px 24px;}
+    .ingredients-card{grid-template-columns:1fr;}
+    .ing-img{min-height:220px;}
+    .ing-text{padding:32px 26px;}
+    .catalog-wrap{padding:30px 24px;}
+    .catalog-grid{grid-template-columns:1fr 1fr;}
+    .korea-banner{grid-template-columns:1fr; margin:40px 24px;}
+    .social{padding:30px 24px;}
+    footer{padding:40px 24px 20px;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:30px;}
+  }
+  @media (max-width:520px){
+    .hero h1{font-size:46px;}
+    .catalog-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="K-Soup logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#" class="active">INICIO</a></li>
+      <li><a href="#menu">MENÚ</a></li>
+      <li><a href="#">SABORES</a></li>
+      <li><a href="#">NOSOTROS</a></li>
+      <li><a href="#contacto">CONTACTO</a></li>
+    </ul>
+  </nav>
+  <div class="header-icons">
+    <div class="icon">🔍</div>
+    <div class="icon">👤</div>
+    <div class="icon">🛒<span class="cart-badge">2</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="badge-pill">🌶️ 매운 한국 맛</span>
+    <h1>K-<span>SOUP</span></h1>
+    <p class="hero-sub">DULCE POR FUERA,<br><span class="accent">FUEGO</span> POR DENTRO.</p>
+    <p class="hero-desc">Sopa instantánea coreana llena de sabor, picante y amor.</p>
+    <!-- Botones eliminados -->
+  </div>
+  <div class="hero-visual">
+    <div class="hero-plate">
+      <img src="sopasen.jpeg" alt="K-Soup sopa completa">
+    </div>
+    <div class="timer-chip">
+      <span class="small">LISTA EN</span>
+      <span class="big">3-4</span>
+      <span class="small">MINUTOS ⏱️</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <div class="ico">🔥</div>
+    <div><h4>PICANTE A TU MANERA</h4><p>Elige tu nivel de picante</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">⏱️</div>
+    <div><h4>LISTA EN 3-4 MINUTOS</h4><p>Rápido, fácil y perfecta para cualquier momento</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">🌾</div>
+    <div><h4>INGREDIENTES PREMIUM</h4><p>Seleccionamos lo mejor para ti</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">❤️</div>
+    <div><h4>HECHA CON PASIÓN</h4><p>Cada sopa hecha con amor y dedicación</p></div>
+  </div>
+</section>
+
+<section class="ingredients">
+  <div class="ingredients-card">
+    <div class="ing-img"><img src="ingredientes.jpeg" alt="Ingredientes K-Soup"></div>
+    <div class="ing-text">
+      <h2>INGREDIENTES QUE MARCAN LA DIFERENCIA</h2>
+      <p>Elote dulce, taqueritos picantes, chicharrón crocante, queso derretido y mucho más — combina los complementos que quieras para armar tu sopa perfecta.</p>
+    </div>
+  </div>
+</section>
+
+<div id="menu" class="section-title">
+  <h2>🌸 MENÚ K-SOUP 🌸</h2>
+  <p>Elige tu sopa y personalízala a tu gusto</p>
+</div>
+
+<div class="catalog-wrap">
+  <div class="catalog-grid">
+    <div class="product-card">
+      <div class="img-plate"><img src="joj.jpeg" alt="Sopa Completa"></div>
+      <h3>SOPA COMPLETA 🔥</h3>
+      <p class="product-desc">Cargada con todos los toppings: queso derretido, chile en polvo y taqueritos crujientes. La experiencia K-Soup al máximo.</p>
+      <div class="price">$70</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+    <div class="product-card">
+      <div class="img-plate"><img src="assets/soup_sencilla.jpg" alt="Sopa Sencilla"></div>
+      <h3>SOPA SENCILLA 🍜</h3>
+      <p class="product-desc">Nuestra base de sopa instantánea coreana, servida clásica con un toque de limón. Simple, rápida y deliciosa.</p>
+      <div class="price">$30</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+    <div class="product-card">
+      <div class="img-plate"><img src="sopasen.jpeg" alt="Sopa con Complementos"></div>
+      <h3>SOPA CON COMPLEMENTOS 🧀</h3>
+      <p class="product-desc">La sopa sencilla acompañada de un complemento a tu elección: queso, chicharrón, elote o lo que más te antoje.</p>
+      <div class="price">$40</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+  </div>
+</div>
+
+<div class="korea-banner">
+  <div class="kb-text">
+    <h2>EL SABOR DE COREA<br><span>EN TUS MANOS</span></h2>
+    <p>Recetas auténticas, ingredientes seleccionados y el toque picante que te encanta.</p>
+    <a href="#" class="btn btn-primary" style="width:fit-content;">CONOCE MÁS</a>
+  </div>
+  <div class="kb-img">
+    <img src="assets/banner_bowl.jpg" alt="K-Soup bowl">
+  </div>
+</div>
+
+<section class="social">
+  <h3>🌸 SÍGUENOS EN NUESTRAS REDES 🌸</h3>
+  <div class="social-row">
+    <a href="#" class="social-pill ig">📷 @ksoupoficial</a>
+    <a href="#" class="social-pill fb">f K-Soup</a>
+    <a href="#" class="social-pill tk">♪ @k_soup</a>
+    <a href="#" class="social-pill wa">💬 Escríbenos</a>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="footer-grid">
+    <div class="col">
+      <div class="footer-logo">
+        <img src="logo.png" alt="K-Soup logo">
+        <div>
+          <div class="name">K-SOUP</div>
+          <div class="sub">한국 인스턴트</div>
+        </div>
+      </div>
+      <p>Sopa instantánea coreana llena de sabor, picante y amor.</p>
+    </div>
+    <div class="col">
+      <h5>CONTÁCTANOS</h5>
+      <ul>
+        <li>+504 1234-5678</li>
+        <li>hola@k-soup.com</li>
+        <li>Tegucigalpa, Honduras</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h5>REDES SOCIALES</h5>
+      <ul>
+        <li>Instagram</li>
+        <li>Facebook</li>
+        <li>TikTok</li>
+        <li>WhatsApp</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 K-Soup. Todos los derechos reservados.</div>
+</footer>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Soup | Sopa instantánea coreana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red: #d20c11;
+    --red-dark: #730b0b;
+    --red-bright:#d20c11;
+    --cream: #fef0e3;
+    --cream-2: #f8e2ca;
+    --black: #180f0b;
+    --pure-black: #000000;
+    --gold: #e8a33d;
+    --text-muted:#6b5c52;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  ul{list-style:none;}
+  .display{font-family:'Jua', sans-serif;}
+
+  /* ===== Header ===== */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 60px;
+    background:var(--cream);
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{width:52px; height:52px; border-radius:50%;}
+  nav ul{display:flex; gap:38px;}
+  nav a{
+    font-weight:600; font-size:14px; letter-spacing:.5px;
+    color:var(--black); position:relative; padding-bottom:6px;
+  }
+  nav a.active{color:var(--red-bright);}
+  nav a.active::after{
+    content:""; position:absolute; left:0; bottom:0; width:100%; height:3px;
+    background:var(--red-bright); border-radius:3px;
+  }
+  .header-icons{display:flex; gap:22px; align-items:center;}
+  .header-icons .icon{
+    width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; position:relative;
+  }
+  .cart-badge{
+    position:absolute; top:-8px; right:-10px; background:var(--red-bright); color:#fff;
+    font-size:10px; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    align-items:center;
+    padding:20px 60px 50px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 100% 0%, #180f0b 0%, transparent 40%),
+      var(--cream);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:0; left:0; width:56%; height:100%;
+    background: linear-gradient(120deg, var(--red) 0%, var(--red-dark) 60%, transparent 61%);
+    opacity:.12;
+    z-index:0;
+    pointer-events:none;
+  }
+  .hero-copy{position:relative; z-index:2;}
+  .badge-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--red-bright); color:#fff; font-size:12px; font-weight:700;
+    padding:6px 16px; border-radius:999px; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:96px; line-height:.85; color:var(--black);
+    -webkit-text-stroke: 0px;
+    letter-spacing:-1px;
+    margin-bottom:22px;
+  }
+  .hero h1 span{
+    display:block; color:var(--red-bright);
+  }
+  .hero-sub{
+    font-family:'Jua', sans-serif;
+    font-size:30px; line-height:1.15; margin-bottom:18px; color:var(--black);
+  }
+  .hero-sub .accent{color:var(--red-bright);}
+  .hero-desc{
+    color:var(--text-muted); font-size:15px; line-height:1.6; max-width:340px; margin-bottom:30px;
+  }
+  /* Botones eliminados del hero */
+
+  .hero-visual{position:relative; z-index:2; display:flex; justify-content:center;}
+  .hero-plate{
+    background: transparent;
+    padding: 0;
+    width:100%; max-width:420px; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    box-shadow: none;
+  }
+  .hero-plate img{width:100%; height:100%; object-fit:contain;}
+  .timer-chip{
+    position:absolute; right:6%; bottom:8%;
+    background:var(--black); color:#fff; border-radius:50%;
+    width:120px; height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; font-family:'Jua',sans-serif; box-shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+  .timer-chip .small{font-size:10px; font-weight:400; font-family:'Poppins',sans-serif; opacity:.8;}
+  .timer-chip .big{font-size:26px; color:var(--gold); line-height:1;}
+
+  /* ===== Features Strip ===== */
+  .features{
+    background: linear-gradient(180deg, var(--red-bright), var(--red-dark));
+    color:#fff;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:34px 60px;
+    gap:20px;
+  }
+  .feature{display:flex; align-items:center; gap:14px;}
+  .feature .ico{
+    width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.15);
+    display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+  }
+  .feature h4{font-size:14px; font-weight:700; margin-bottom:4px;}
+  .feature p{font-size:12px; opacity:.85; line-height:1.4;}
+
+  /* ===== Ingredients showcase ===== */
+  .ingredients{
+    padding:40px 60px 10px;
+  }
+  .ingredients-card{
+    background:#fff; border-radius:18px; overflow:hidden;
+    display:grid; grid-template-columns:1.1fr 1fr; align-items:stretch;
+    box-shadow:0 4px 18px rgba(0,0,0,.06); min-height:320px;
+  }
+  .ing-img{position:relative; overflow:hidden;}
+  .ing-img img{width:100%; height:100%; object-fit:cover; display:block;}
+  .ing-text{padding:44px 46px; display:flex; flex-direction:column; justify-content:center;}
+  .ing-text h2{
+    font-family:'Jua', sans-serif; font-size:28px; line-height:1.2; color:var(--red-bright); margin-bottom:16px;
+  }
+  .ing-text p{color:var(--text-muted); font-size:14.5px; line-height:1.7;}
+
+  /* ===== Catalog ===== */
+  .section-title{
+    text-align:center; padding-top:50px;
+  }
+  .section-title h2{
+    font-family:'Jua', sans-serif; font-size:32px; color:var(--red-bright);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .section-title p{color:var(--text-muted); font-size:14px; margin-top:6px;}
+
+  .catalog-wrap{
+    position:relative; padding:30px 60px 10px;
+  }
+  .catalog-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  .product-card{
+    background:#fff; border-radius:16px; padding:22px; text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.05);
+    display:flex; flex-direction:column;
+  }
+  .img-plate{
+    background:#f4ece0; border-radius:14px; padding:16px; margin-bottom:14px; overflow:hidden;
+  }
+  .product-card img{
+    width:100%; aspect-ratio:1/1; object-fit:contain; display:block;
+  }
+  .product-card h3{font-size:17px; font-weight:700; margin-bottom:6px;}
+  .product-desc{font-size:12.5px; color:var(--text-muted); line-height:1.5; margin-bottom:14px; flex-grow:1;}
+  .price{font-weight:800; color:var(--red-bright); margin-bottom:14px; font-size:22px; font-family:'Jua',sans-serif;}
+  .buy-btn{
+    display:block; width:100%; background:var(--red-bright); color:#fff; border:none;
+    padding:12px; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer;
+  }
+
+  /* ===== Korea Banner ===== */
+  .korea-banner{
+    margin:60px 60px 0; border-radius:18px; overflow:hidden; position:relative;
+    display:grid; grid-template-columns:1fr 1fr; align-items:stretch; min-height:280px;
+    background:var(--black);
+  }
+  .korea-banner .kb-text{
+    padding:50px; display:flex; flex-direction:column; justify-content:center; color:#fff; position:relative; z-index:2;
+  }
+  .korea-banner h2{
+    font-family:'Jua', sans-serif; font-size:38px; line-height:1.1; margin-bottom:16px;
+  }
+  .korea-banner h2 span{color:var(--red-bright);}
+  .korea-banner p{color:#d8cfc8; font-size:14px; margin-bottom:24px; max-width:320px;}
+  .korea-banner .kb-img{position:relative;}
+  .korea-banner .kb-img img{width:100%; height:100%; object-fit:cover;}
+
+  /* ===== Social ===== */
+  .social{
+    background:var(--cream-2); padding:40px 60px; text-align:center;
+  }
+  .social h3{
+    font-family:'Jua', sans-serif; color:var(--red-bright); font-size:22px; margin-bottom:20px;
+  }
+  .social-row{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
+  .social-pill{
+    display:flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+    color:#fff; font-weight:600; font-size:14px;
+  }
+  .social-pill.ig{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);}
+  .social-pill.fb{background:#1877f2;}
+  .social-pill.tk{background:var(--pure-black);}
+  .social-pill.wa{background:#25d366;}
+
+  /* ===== Footer ===== */
+  footer{
+    background:linear-gradient(180deg, var(--red), var(--red-dark));
+    color:#fff; padding:50px 60px 24px;
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:24px; padding-bottom:30px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+  }
+  .footer-logo{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .footer-logo img{width:44px; height:44px; border-radius:50%;}
+  .footer-logo .name{font-family:'Jua',sans-serif; font-size:18px; line-height:1;}
+  .footer-logo .sub{font-size:10px; opacity:.8;}
+  footer .col p{font-size:12px; line-height:1.7; opacity:.85; max-width:220px;}
+  footer h5{font-size:13px; margin-bottom:14px; font-weight:700;}
+  footer .col ul li{font-size:12px; opacity:.85; margin-bottom:9px;}
+  /* Sección newsletter eliminada */
+  .footer-bottom{
+    text-align:center; font-size:11px; opacity:.7; padding-top:20px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px){
+    header{padding:14px 24px; flex-wrap:wrap; gap:12px;}
+    nav ul{gap:18px; flex-wrap:wrap;}
+    .hero{grid-template-columns:1fr; padding:20px 24px 40px; text-align:center;}
+    .hero-desc{margin-left:auto; margin-right:auto;}
+    .hero h1{font-size:64px;}
+    .hero::before{display:none;}
+    .features{grid-template-columns:1fr 1fr; padding:30px 24px;}
+    .ingredients{padding:30px 24px;}
+    .ingredients-card{grid-template-columns:1fr;}
+    .ing-img{min-height:220px;}
+    .ing-text{padding:32px 26px;}
+    .catalog-wrap{padding:30px 24px;}
+    .catalog-grid{grid-template-columns:1fr 1fr;}
+    .korea-banner{grid-template-columns:1fr; margin:40px 24px;}
+    .social{padding:30px 24px;}
+    footer{padding:40px 24px 20px;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:30px;}
+  }
+  @media (max-width:520px){
+    .hero h1{font-size:46px;}
+    .catalog-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="K-Soup logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#" class="active">INICIO</a></li>
+      <li><a href="#menu">MENÚ</a></li>
+      <li><a href="#">SABORES</a></li>
+      <li><a href="#">NOSOTROS</a></li>
+      <li><a href="#contacto">CONTACTO</a></li>
+    </ul>
+  </nav>
+  <div class="header-icons">
+    <div class="icon">🔍</div>
+    <div class="icon">👤</div>
+    <div class="icon">🛒<span class="cart-badge">2</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="badge-pill">🌶️ 매운 한국 맛</span>
+    <h1>K-<span>SOUP</span></h1>
+    <p class="hero-sub">DULCE POR FUERA,<br><span class="accent">FUEGO</span> POR DENTRO.</p>
+    <p class="hero-desc">Sopa instantánea coreana llena de sabor, picante y amor.</p>
+    <!-- Botones eliminados -->
+  </div>
+  <div class="hero-visual">
+    <div class="hero-plate">
+      <img src="sopasen.jpeg" alt="K-Soup sopa completa">
+    </div>
+    <div class="timer-chip">
+      <span class="small">LISTA EN</span>
+      <span class="big">3-4</span>
+      <span class="small">MINUTOS ⏱️</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <div class="ico">🔥</div>
+    <div><h4>PICANTE A TU MANERA</h4><p>Elige tu nivel de picante</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">⏱️</div>
+    <div><h4>LISTA EN 3-4 MINUTOS</h4><p>Rápido, fácil y perfecta para cualquier momento</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">🌾</div>
+    <div><h4>INGREDIENTES PREMIUM</h4><p>Seleccionamos lo mejor para ti</p></div>
+  </div>
+  <div class="feature">
+    <div class="ico">❤️</div>
+    <div><h4>HECHA CON PASIÓN</h4><p>Cada sopa hecha con amor y dedicación</p></div>
+  </div>
+</section>
+
+<section class="ingredients">
+  <div class="ingredients-card">
+    <div class="ing-img"><img src="ingredientes.jpeg" alt="Ingredientes K-Soup"></div>
+    <div class="ing-text">
+      <h2>INGREDIENTES QUE MARCAN LA DIFERENCIA</h2>
+      <p>Elote dulce, taqueritos picantes, chicharrón crocante, queso derretido y mucho más — combina los complementos que quieras para armar tu sopa perfecta.</p>
+    </div>
+  </div>
+</section>
+
+<div id="menu" class="section-title">
+  <h2>🌸 MENÚ K-SOUP 🌸</h2>
+  <p>Elige tu sopa y personalízala a tu gusto</p>
+</div>
+
+<div class="catalog-wrap">
+  <div class="catalog-grid">
+    <div class="product-card">
+      <div class="img-plate"><img src="joj.jpeg" alt="Sopa Completa"></div>
+      <h3>SOPA COMPLETA 🔥</h3>
+      <p class="product-desc">Cargada con todos los toppings: queso derretido, chile en polvo y taqueritos crujientes. La experiencia K-Soup al máximo.</p>
+      <div class="price">Lps.70</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+    <div class="product-card">
+      <div class="img-plate"><img src="assets/soup_sencilla.jpg" alt="Sopa Sencilla"></div>
+      <h3>SOPA SENCILLA 🍜</h3>
+      <p class="product-desc">Nuestra base de sopa instantánea coreana, servida clásica con un toque de limón. Simple, rápida y deliciosa.</p>
+      <div class="price">Lps.30</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+    <div class="product-card">
+      <div class="img-plate"><img src="sopasen.jpeg" alt="Sopa con Complementos"></div>
+      <h3>SOPA CON COMPLEMENTOS 🧀</h3>
+      <p class="product-desc">La sopa sencilla acompañada de un complemento a tu elección: queso, chicharrón, elote o lo que más te antoje.</p>
+      <div class="price">Lps.40</div>
+      <button class="buy-btn">PEDIR AHORA</button>
+    </div>
+  </div>
+</div>
+
+<div class="korea-banner">
+  <div class="kb-text">
+    <h2>EL SABOR DE COREA<br><span>EN TUS MANOS</span></h2>
+    <p>Recetas auténticas, ingredientes seleccionados y el toque picante que te encanta.</p>
+    <a href="#" class="btn btn-primary" style="width:fit-content;">CONOCE MÁS</a>
+  </div>
+  <div class="kb-img">
+    <img src="assets/banner_bowl.jpg" alt="K-Soup bowl">
+  </div>
+</div>
+
+<section class="social">
+  <h3>🌸 SÍGUENOS EN NUESTRAS REDES 🌸</h3>
+  <div class="social-row">
+    <a href="#" class="social-pill ig">📷 @ksoupoficial</a>
+    <a href="#" class="social-pill fb">f K-Soup</a>
+    <a href="#" class="social-pill tk">♪ @k_soup</a>
+    <a href="#" class="social-pill wa">💬 Escríbenos</a>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="footer-grid">
+    <div class="col">
+      <div class="footer-logo">
+        <img src="logo.png" alt="K-Soup logo">
+        <div>
+          <div class="name">K-SOUP</div>
+          <div class="sub">한국 인스턴트</div>
+        </div>
+      </div>
+      <p>Sopa instantánea coreana llena de sabor, picante y amor.</p>
+    </div>
+    <div class="col">
+      <h5>CONTÁCTANOS</h5>
+      <ul>
+        <li>+504 1234-5678</li>
+        <li>hola@k-soup.com</li>
+        <li>Tegucigalpa, Honduras</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h5>REDES SOCIALES</h5>
+      <ul>
+        <li>Instagram</li>
+        <li>Facebook</li>
+        <li>TikTok</li>
+        <li>WhatsApp</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 K-Soup. Todos los derechos reservados.</div>
+</footer>
+
+</body>
+</html>
